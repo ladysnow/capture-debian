@@ -4,7 +4,6 @@
 #
 #
 #
-
 LOG=/var/log/weblog
 date >> $LOG
 /usr/bin/python /usr/share/pyshared/webdagta/loadfunds.py >> $LOG
