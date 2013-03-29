@@ -1,9 +1,0 @@
-#!/usr/bin/make -f
-
-%:
-	dh $@ --with python2  --verbose
-	
-override_dh_auto_clean:
-	dh_auto_clean
-	rm -rf build
-	rm -rf *.egg-info
