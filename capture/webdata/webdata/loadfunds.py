@@ -1,7 +1,7 @@
+import sys
 from lxml import etree
 import mysql.connector
 import datetime
-import sys
 
 class HTMLPages:
     Server = "http://web.msse.se/"
@@ -33,9 +33,9 @@ class HTMLPages:
                 parser = etree.HTMLParser()
                 result = etree.parse(key, parser).getroot()
                 self.urlDict[key] = result
-            except: 
-                print ("Exception at getPage ")
-                return ""
+            except Exception as e: 
+                print ("Exception at getPage " + str(e))
+                raise e
                     
         return self.urlDict[key]
     
@@ -130,10 +130,14 @@ class ScandiaFund:
             
      
 pages = HTMLPages()    
-if ( pages.getNumberOfPages() == 0 ):
-    print ("No pages! Server or internet connection may be down!")  
+try:
+    if ( pages.getNumberOfPages() == 0 ):
+        print ("No pages! Server or internet connection may be down!")  
+        sys.exit(0)
+except Exception as e:
+    print("No pages! Server or internet connection may be down!")
     sys.exit(0)
-         
+    
 statement1="""INSERT INTO funds (valueDate,symbol,name,value,std,feeAnnual,feeMaintenance,feeBuy,feeSell) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s) ON duplicate key UPDATE value = value"""
 statement2="""INSERT INTO fundsStatics (symbol,termsheetURL1,termsheetURL2) VALUES (%s,%s,%s) ON duplicate key UPDATE termsheetURL1 = termsheetURL1, termsheetURL1 = termsheetURL1"""
 
