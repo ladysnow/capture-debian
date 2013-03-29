@@ -6,5 +6,5 @@
 #
 LOG=/var/log/weblog
 date >> $LOG
-/usr/bin/python /usr/share/pyshared/webdagta/loadfunds.py >> $LOG
+/usr/bin/python /usr/share/pyshared/webdata/loadfunds.py >> $LOG
 date >> $LOG
